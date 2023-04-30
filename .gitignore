@@ -15,3 +15,8 @@ assets/wallBasic.jpg~
 assets/wallBasic.jpg.kra
 assets/wall1107.jpg.kra
 assets/wallGraffiti.jpg.kra
+mainfs
+main2.cpp
+.vscode/launch.json
+.vscode/settings.json
+.vscode/tasks.json

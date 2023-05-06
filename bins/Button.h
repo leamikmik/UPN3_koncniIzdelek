@@ -8,8 +8,7 @@
 using namespace std;
 using namespace sf;
 
-void startMaze();
-void resumeMaze();
+
 
 class Button{
     public:
@@ -19,10 +18,11 @@ class Button{
     FloatRect bounds;
     Text text;
     bool active;
+    static bool onButton;
 
     Button();
     Button(Vector2f size, Vector2f pos, string info, bool act, Font *font, Cursor *hover, Cursor *normal);
-    void update(RenderWindow *window, Vector2i mousePos, Vector2f scenePos);
+    bool update(RenderWindow *window, Vector2i mousePos, Vector2f scenePos);
 
     void setColor(Color color);
     void setPosition(Vector2f npos);

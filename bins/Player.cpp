@@ -1,8 +1,8 @@
 #include "Player.h"
 
-void Player::update(RenderWindow *window, Maze *maze){
+void Player::update(RenderWindow *window, Maze *maze, bool paused){
     movement = Vector2f(0, 0);
-    if(window->hasFocus()){
+    if(window->hasFocus() && !paused){
         if(Keyboard::isKeyPressed(Keyboard::W) || Keyboard::isKeyPressed(Keyboard::Up)) direction[0]=DOWN;
             else direction[0]=UP; 
         if(Keyboard::isKeyPressed(Keyboard::A) || Keyboard::isKeyPressed(Keyboard::Left)) direction[1]=DOWN;

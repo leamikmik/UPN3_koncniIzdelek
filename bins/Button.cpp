@@ -1,36 +1,39 @@
 #include "Button.h"
 
+bool Button::onButton = 0;
+
 Button::Button(){}
 
 Button::Button(Vector2f size, Vector2f pos, string info, bool act, Font *font, Cursor *hover, Cursor *normal){
-    void update(RenderWindow *window, Vector2i mousePos);
     this->size = size;
     this->screenPos = pos;
     this->active = act; 
     this->hover = hover;
     this->normal = normal;
 
-    FloatRect rc = text.getLocalBounds();
     rectangle.setSize(size);
     text.setStyle(Text::Bold);
     text.setFont(*font);
     text.setString(info);
     text.setFillColor(Color::Black);
     text.setCharacterSize(15);
+    FloatRect rc = text.getLocalBounds();
     text.setOrigin(rc.width/2, rc.height/2);
 
     this->setColor(Color::Green);
 }
 
-void Button::update(RenderWindow *window, Vector2i mousePos, Vector2f scenePos){
+bool Button::update(RenderWindow *window, Vector2i mousePos, Vector2f scenePos){
     this->bounds=this->rectangle.getGlobalBounds();
     if(this->active==1){
         this->setPosition(scenePos+screenPos);
         window->draw(rectangle);
         window->draw(text);
-        if(this->bounds.contains(Vector2f(mousePos))) window->setMouseCursor(*hover);
-        else window->setMouseCursor(*normal);
+        if(this->bounds.contains(Vector2f(mousePos)) && !Button::onButton){window->setMouseCursor(*hover); Button::onButton=1; return 1;}
+        else if(!Button::onButton) window->setMouseCursor(*normal);
     }
+    if(!Button::onButton) window->setMouseCursor(*normal);
+    return 0;
 }
 
 void Button::setColor(Color color){
@@ -38,9 +41,9 @@ void Button::setColor(Color color){
 }
 
 void Button::setPosition(Vector2f npos){
-    pos=npos;
+    this->pos=npos;
     rectangle.setPosition(npos);
-    text.setPosition(Vector2f(npos.x+size.x/2, npos.y+size.y*2/5));
+    text.setPosition(npos+size/2.f);
 }
 
 void Button::setTextColor(Color color){

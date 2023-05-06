@@ -20,3 +20,6 @@ void FPS::update(RenderWindow *window){
     window->draw(frameCount);
 }
 
+void FPS::setTextSize(int size){
+    frameCount.setCharacterSize(size);
+}

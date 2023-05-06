@@ -16,6 +16,7 @@ class FPS{
     FPS(Font *font);
     void start();
     void update(RenderWindow *window);
+    void setTextSize(int size);
 };
 
 #endif

@@ -106,15 +106,15 @@ class Wall{
         rectangle.setPosition(pos);        
         if(act==1){
             switch(rand()%150){
-                case 0:{sprite.loadFromFile("./bins/assets/wallGraffiti.jpg"); break;}
-                case 1:{sprite.loadFromFile("./bins/assets/wall1107.jpg"); break;}
-                case 2:{sprite.loadFromFile("./bins/assets/wallMossingOfLife.jpg"); break;}
-                case 3:{sprite.loadFromFile("./bins/assets/wallSign.jpg"); break;}
-                case 4:{sprite.loadFromFile("./bins/assets/wallWater.jpg"); break;}
-                default:{sprite.loadFromFile("./bins/assets/wallConnect.jpg"); break;}
+                case 0:{sprite.loadFromFile("./assets/wallGraffiti.jpg"); break;}
+                case 1:{sprite.loadFromFile("./assets/wall1107.jpg"); break;}
+                case 2:{sprite.loadFromFile("./assets/wallMossingOfLife.jpg"); break;}
+                case 3:{sprite.loadFromFile("./assets/wallSign.jpg"); break;}
+                case 4:{sprite.loadFromFile("./assets/wallWater.jpg"); break;}
+                default:{sprite.loadFromFile("./assets/wallConnect.jpg"); break;}
             }
         }
-        else sprite.loadFromFile("./bins/assets/temp.jpg");
+        else sprite.loadFromFile("./assets/temp.jpg");
         rectangle.setTexture(&sprite);
         //rectangle.rotate(rot);
         updateBounds();
@@ -279,7 +279,7 @@ void buttonPress(RenderWindow* window, vector<Button> *buttons){
 int main(){
     XInitThreads();
     srand(time(NULL));
-    if(!roboto.loadFromFile("./bins/assets/Roboto-Regular.ttf")){cout<<"FONT NOT FOUND";return 0;};
+    if(!roboto.loadFromFile("./assets/Roboto-Regular.ttf")){cout<<"FONT NOT FOUND";return 0;};
     hover.loadFromSystem(sf::Cursor::Hand);
     normal.loadFromSystem(sf::Cursor::Arrow);
     

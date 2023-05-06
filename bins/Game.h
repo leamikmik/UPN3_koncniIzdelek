@@ -13,16 +13,15 @@ class Game{
     Texture sprites[7];
     Vector2i localMouse;
     FPS fps;
-    Text test;
 
     MazeScene scMaze;
+    MainMenu scMain;
     //Maze maze;
 
     Game();
 
     void run();
     void events();
-    void startMaze();
 };
 
 #endif

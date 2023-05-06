@@ -8,8 +8,12 @@ void Game::events(){
             case Event::Closed:{window->close(); break;}
             case Event::MouseButtonPressed:{
                 cout << localMouse.x << ", " << localMouse.y << endl;
-                for(int i=0; i<currentScene->numButt; i++)
-                    if(currentScene->buttons[i].bounds.contains(Vector2f(localMouse))) currentScene->triggerButton(i);
+                for(int i=0; i<Scene::currentScene->numButt; i++){
+                    if(Scene::currentScene->buttons[i].bounds.contains(Vector2f(localMouse))) {Scene::currentScene->triggerButton(i, this); break;}
+                }
+            }
+            case Event::KeyPressed:{
+                if((event.key.code==Keyboard::Escape || event.key.code==Keyboard::P) && Scene::currentScene == &scMaze) scMaze.paused = !scMaze.paused;
                 break;
             }
         }
@@ -34,22 +38,22 @@ void Game::run(){
     window->setFramerateLimit(60);
 
     fps = FPS(&roboto);
-    scMaze = MazeScene(Vector2f(1200, 800), &roboto, &hover, &normal, sprites);
+    scMaze = MazeScene(&roboto, &hover, &normal, sprites);
+    scMain = MainMenu(&roboto, &hover, &normal);
 
-    window->setView(scMaze.view);
-    currentScene = &scMaze;
+    window->setView(scMain.view);
+    Scene::currentScene = &scMain;
     
 
     while(window->isOpen()){
         events();
         fps.start();
         window->clear();
-        test.setPosition(currentScene->center);
-        localMouse = Vector2i(Vector2f(Mouse::getPosition(*window))*currentScene->zoom + currentScene->pos);
+        localMouse = Vector2i(Vector2f(Mouse::getPosition(*window))*Scene::currentScene->zoom + Scene::currentScene->pos);
         //cout << localMouse.x << ", " << localMouse.y << endl;
-        currentScene->update(window, localMouse);
-        window->setView(currentScene->view);
-        window->draw(test);
+        window->setView(Scene::currentScene->view);
+        Scene::currentScene->update(window, localMouse);
+        fps.setTextSize(15*Scene::currentScene->zoom);
         fps.update(window);
         window->display();
     }

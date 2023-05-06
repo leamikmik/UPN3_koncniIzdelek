@@ -48,7 +48,6 @@ Vector2f Maze::checkCollision(Vector2f pos, Vector2f size, Vector2f move){
             if(this->mazeLayout[i][j].bounds.intersects(FloatRect(Vector2f(pos.x+move.x, pos.y), size)) && this->mazeLayout[i][j].active){move.x=0;}
             if(this->mazeLayout[i][j].bounds.intersects(FloatRect(Vector2f(pos.x, pos.y+move.y), size)) && this->mazeLayout[i][j].active){move.y=0;}
     }
-    if((pos+move).x<50) move.x=0;
-    else if((pos+move).x>2750) move.y=0;
+    if((pos+move).x<50 || (pos+move).x>2750) move.x=0;
     return move;
 }

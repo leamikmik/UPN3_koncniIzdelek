@@ -18,7 +18,7 @@ class Player{
     FloatRect bounds;
     keyStatus direction[4];
     
-    void update(RenderWindow *window, Maze *maze);
+    void update(RenderWindow *window, Maze *maze, bool paused);
 
     void setPosition(Vector2f pos);
     void setSize(Vector2f size);

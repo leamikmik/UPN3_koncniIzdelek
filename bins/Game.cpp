@@ -2,6 +2,17 @@
 
 Game::Game(){}
 
+// Vem da imate radi fibonaccijevo zaporedje :)
+int rekurzija(int x){
+    if (x == 0)
+        return 0;
+
+    if (x == 1)
+        return 1;
+
+    return rekurzija(x-1)+rekurzija(x-2);
+}
+
 void Game::events(){
     while(window->pollEvent(event))
         switch(event.type){
@@ -44,6 +55,7 @@ void Game::run(){
     window->setView(scMain.view);
     Scene::currentScene = &scMain;
     
+
 
     while(window->isOpen()){
         events();

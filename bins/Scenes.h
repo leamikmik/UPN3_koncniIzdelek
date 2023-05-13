@@ -40,14 +40,17 @@ class MazeScene : public Scene{
     using Scene::Scene;
     Player player;
     Maze maze;
-    bool paused=0;
+    bool paused=0, end=0;
     RectangleShape backgDim;
     Text clTime;
     Clock timer;
+    int finTime;
+    Texture *spritesP;
 
     MazeScene(Font *font, Cursor *hover, Cursor *normal, Texture *sprites);
     void update(RenderWindow *window, Vector2i mPos);
     void triggerButton(int it, Game *game);
+    void shuffleMaze();
 };
 
 class MainMenu : public Scene{

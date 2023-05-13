@@ -42,7 +42,8 @@ MazeScene::MazeScene(Font *font, Cursor *hover, Cursor *normal, Texture *sprites
     player.setPosition(Vector2f(75, 1575));
     player.setColor(Color::Red);
 
-    maze.start(sprites);
+    spritesP=sprites;
+    //maze.start(sprites);
 
     backgDim.setFillColor(Color(0, 0, 0, 200));
     backgDim.setSize(this->size);
@@ -68,7 +69,22 @@ void MazeScene::update(RenderWindow *window, Vector2i mPos){
     if(center.y-200<50) this->setCenter(Vector2f(center.x, 250));
     else if(center.y+200>2750) this->setCenter(Vector2f(center.x, 2550));
 
-    if(paused){
+    for(int i=0; i<numButt; i++) buttons[i].active = paused!=end;
+
+    if(player.pos.x>2700){
+        if(!end) finTime = timer.getElapsedTime().asMilliseconds();
+        end=1;
+        paused=1;
+        backgDim.setPosition(this->pos);        
+        window->draw(backgDim);
+        clTime.setString("You won \n Time: "+formatClock(finTime));
+        clTime.setOrigin(clTime.getLocalBounds().width/2, clTime.getLocalBounds().height);
+        clTime.setPosition(this->center);
+        window->draw(clTime);
+        buttons[1].active=1;
+    }
+
+    if(paused&&!end){
         backgDim.setPosition(this->pos);        
         window->draw(backgDim);
         clTime.setString(formatClock(timer.getElapsedTime().asMilliseconds()));
@@ -77,9 +93,6 @@ void MazeScene::update(RenderWindow *window, Vector2i mPos){
         window->draw(clTime);
     }
 
-    if(player.pos.x>2700) paused = 1;
-
-    for(int i=0; i<numButt; i++) buttons[i].active = paused;
 
     Button::onButton=0;
     buttons[currentButt].update(window, mPos, pos);
@@ -94,13 +107,16 @@ void MazeScene::triggerButton(int it, Game *game){
     }
 }
 
+void MazeScene::shuffleMaze(){
+    maze.start(spritesP);
+}
+
 MainMenu::MainMenu(Font *font, Cursor *hover, Cursor *normal){
     this->setSize(Vector2f(1200, 800));
     this->setCenter(Vector2f(600, -400));
     currentButt=0;
     numButt=3;
     buttons.push_back(Button(Vector2f(200, 80), Vector2f(10, 400), "Start", 1, font, hover, normal));
-    buttons.push_back(Button(Vector2f(200, 80), Vector2f(10, 490), "Leaderboard", 1, font, hover, normal));
     buttons.push_back(Button(Vector2f(200, 80), Vector2f(10, 580), "Quit", 1, font, hover, normal));
 }
 
@@ -112,7 +128,7 @@ void MainMenu::update(RenderWindow *window, Vector2i mPos){
 
 void MainMenu::triggerButton(int it, Game *game){
     switch(it){
-        case 0:{currentScene=&(game->scMaze); game->scMaze.timer.restart(); game->scMaze.paused=0; game->scMaze.player.setPosition(Vector2f(75, 1575)); break;}
-        case 2:{game->window->close(); break;}
+        case 0:{game->scMaze.shuffleMaze(); currentScene=&(game->scMaze); game->scMaze.timer.restart(); game->scMaze.end=game->scMaze.paused=0; game->scMaze.player.setPosition(Vector2f(75, 1575)); break;}
+        case 1:{game->window->close(); break;}
     }
 }

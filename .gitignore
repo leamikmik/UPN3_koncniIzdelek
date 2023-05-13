@@ -1,5 +1,4 @@
 maze
-main
 test
 maze.cpp
 assets/wallWater.jpg.kra
@@ -21,3 +20,4 @@ main2.cpp
 .vscode/settings.json
 .vscode/tasks.json
 mainOld
+assets/temp.jpg~

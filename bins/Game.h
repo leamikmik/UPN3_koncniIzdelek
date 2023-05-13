@@ -4,6 +4,8 @@
 #include "FPS.h"
 #include "Scenes.h"
 
+int rekurzija(int x);
+
 class Game{
     public:
     RenderWindow *window;

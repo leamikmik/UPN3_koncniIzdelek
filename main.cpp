@@ -1,4 +1,4 @@
-#include "bins/Game.h"
+#include "./bins/Game.h"
 
 int main(){
     Game game;

@@ -32,7 +32,6 @@ bool Button::update(RenderWindow *window, Vector2i mousePos, Vector2f scenePos){
         if(this->bounds.contains(Vector2f(mousePos)) && !Button::onButton){window->setMouseCursor(*hover); Button::onButton=1; return 1;}
         else if(!Button::onButton) window->setMouseCursor(*normal);
     }
-    if(!Button::onButton) window->setMouseCursor(*normal);
     return 0;
 }
 
